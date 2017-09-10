@@ -1,0 +1,44 @@
+#main.kv
+
+<Label>:
+    font_name: 'DroidSansFallback.ttf'
+    font_size: 30
+    markup: True
+
+<RootWidget>:
+    width:800
+    height:480
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    id: label_weather1
+                    text: 'weather1'
+                Image:
+                    id: image_weather
+                    source: '100.png'
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: 'wearther2'
+                    id: label_weather2
+                    font_size:30
+                Label:
+                    id: label_weather3
+                    text: 'wearcher3'
+                    font_size:12
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                id: label_time
+                text: '00:00:00'
+                font_size:50
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id: lable_info
+            text: 'info'
