@@ -51,14 +51,18 @@ class MainApp(App):
     sw_seconds = 0
 
     def update_time(self, dt):
-        self.root.ids.label_time.text = time.strftime(
+        sdate =  time.strftime(
+            "[b]%Y-%m-%d[/b]", time.localtime())
+        stime = time.strftime(
             "[b]%H:%M:%S[/b]", time.localtime())
+        self.root.ids.label_time.text =sdate +'\n' + stime
 
     def update_weather(self):
         # 基本天气
         weather = Weather.Weather('beijing').getWeather()['HeWeather5']
         city = weather[0]['basic']['city']
         cond = weather[0]['now']['cond']['txt']
+        cond_code = weather[0]['now']['cond']['code']
         tmp = weather[0]['now']['tmp'] + '℃'
 
         # 空气指数
@@ -77,8 +81,8 @@ class MainApp(App):
         self.root.ids.label_weather1.text = city + ' ' + cond + ' ' + tmp
         self.root.ids.label_weather2.text = '空气指数 : ' + \
             aqi + '\n空气质量 : ' + qlty + '\npm25浓度 : ' + pm25
-        self.root.ids.label_weather3.text = '人体感觉 : ' + drsg_brf + '\n穿衣指数 : ' + drsg_txt
-        # self.root.ids.image_weather.source='/data/images/100.png'
+        self.root.ids.label_weather3.text = '\n人体感觉 : ' + drsg_brf + '\n穿衣指数 : ' + drsg_txt
+        self.root.ids.image_weather.source='data/images/'+cond_code+'.png'
 
     def update_info(self):
         self.root.ids.lable_info.text = u'帅哥，今天你看起来很开心，需要来首歌吗'
