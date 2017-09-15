@@ -1,5 +1,8 @@
 import requests
 import json
+import yuyin
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 
 class Tuling():
@@ -8,10 +11,9 @@ class Tuling():
         self.APIurl = 'http://www.tuling123.com/openapi/api'
 
     def get_data(self, text):
-        userId = '12345'
         inputText = {'Text', text}
         key = self.APIkey
-        data = {'info': inputText, 'userid': userId, 'key': key}
+        data = {'info': inputText, 'key': key}
         print(data)
         return data
 
@@ -23,7 +25,19 @@ class Tuling():
         return answer
 
 
+async def test():
+    while True:
+        yy = yuyin.Baiduyuyin()
+        print('获取语音数据')
+        s = await yy.asr('record.wav')
+        print(s)
+
 if __name__ == '__main__':
-    while 1:
-        s = input()
-        print(Tuling().get_answer(s))
+    # 获取EventLoop
+    loop = asyncio.get_event_loop()
+    # 执行coroutine
+    loop.run_until_complete(test())
+    loop.close()
+
+    # s = input()
+    # print(Tuling().get_answer(s))
