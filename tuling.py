@@ -17,7 +17,7 @@ class Tuling():
         print(data)
         return data
 
-    def get_answer(self, text):
+    async def get_answer(self, text):
         data = self.get_data(text)
         response = requests.post(url=self.APIurl, data=data)
         result = response.json()
@@ -29,8 +29,11 @@ async def test():
     while True:
         yy = yuyin.Baiduyuyin()
         print('获取语音数据')
-        s = await yy.asr('record.wav')
+        s = await yy.asr('record.wav')['result'][0]
         print(s)
+        a = await Tuling().get_answer(s)
+        print(a)
+        print("等待")
 
 if __name__ == '__main__':
     # 获取EventLoop

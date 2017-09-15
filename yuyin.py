@@ -15,7 +15,7 @@ class Baiduyuyin():
         # 初始化AipSpeech对象
         self.aipSpeech = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 
-    def asr(self, filename):
+    async def asr(self, filename):
         r = self.aipSpeech.asr(self.get_file_content(
             filename), 'wav', 16000, {'lan': 'zh', })
         return r
