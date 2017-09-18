@@ -30,7 +30,7 @@ class Voice():
                          frames_per_buffer=self.NUM_SAMPLES)
         my_buf = []
         count = 0
-        print('听取命令中')
+        # print('听取命令中')
         while count < self.TIME * 20:  # 控制录音时间
             string_audio_data = stream.read(self.NUM_SAMPLES)
             my_buf.append(string_audio_data)

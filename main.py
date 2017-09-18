@@ -5,6 +5,9 @@ from kivy.uix.image import Image
 import time
 import Weather  # 查看天气
 import json
+import yuyin #百度语音
+import voice #麦克风语音处理
+import tuling #图灵机器人
 
 
 class RootWidget(BoxLayout):
@@ -85,7 +88,25 @@ class MainApp(App):
         self.root.ids.image_weather.source='data/images/'+cond_code+'.png'
 
     def update_info(self):
-        self.root.ids.lable_info.text = u'帅哥，今天你看起来很开心，需要来首歌吗'
+        #self.root.ids.lable_info.text = u'帅哥，今天你看起来很开心，需要来首歌吗'
+        y = yuyin.Baiduyuyin()
+        t = tuling.Tuling()
+        v = voice.Voice()
+
+        try:
+            print('听取命令')
+            v.my_record()
+            print('收到命令，进行识别')
+            s=y.asr('01.wav')['result'][0]
+            print('识别结果为：%S'% s)
+            print('启动图灵机器人对话')
+            a=t.get_answer(s)
+            print('图灵机巧人反馈:%s'% a)
+            self.root.ids.lable_info.text = a
+        except:
+            self.root.ids.lable_info.text = "主人，没有听懂你的命令，请重新下命令吧"
+        finally:
+             Clock.schedule_once(lambda dt: self.update_info(), 5) 
 
     def on_start(self):
         Clock.schedule_interval(self.update_time, 1)

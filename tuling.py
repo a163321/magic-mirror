@@ -11,13 +11,13 @@ class Tuling():
         self.APIurl = 'http://www.tuling123.com/openapi/api'
 
     def get_data(self, text):
-        inputText = {'Text', text}
+        inputText = {text}
         key = self.APIkey
         data = {'info': inputText, 'key': key}
         print(data)
         return data
 
-    async def get_answer(self, text):
+    def get_answer(self, text):
         data = self.get_data(text)
         response = requests.post(url=self.APIurl, data=data)
         result = response.json()
@@ -25,13 +25,13 @@ class Tuling():
         return answer
 
 
-async def test():
+def test():
     while True:
         yy = yuyin.Baiduyuyin()
         print('获取语音数据')
-        s = await yy.asr('record.wav')['result'][0]
+        s = yy.asr('record.wav')['result'][0]
         print(s)
-        a = await Tuling().get_answer(s)
+        a = Tuling().get_answer(s)
         print(a)
         print("等待")
 
